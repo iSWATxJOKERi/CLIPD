@@ -21,7 +21,7 @@ app.get("/pubg/gamertag/:matchId", (req, res) => {
         }
     }
 
-    let request = new Request(`https://api.pubg.com/shards/xbox/matches/${ req.params.matchId }`, gameInit);
+    let request = new fetch.Request(`https://api.pubg.com/shards/xbox/matches/${ req.params.matchId }`, gameInit);
     return fetch(request).then(function(response) {
         if(response.ok) {
             return response.json().then(match => {
