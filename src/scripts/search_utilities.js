@@ -21,25 +21,18 @@ export const getPlayerByName = gamertag => {
 window.getPlayerByName = getPlayerByName;
 
 export const getMatch = (matchId) => {
-    
     const gameInit = {
         method: 'get',
-        headers: {
-            Accept: 'application/vnd.api+json'
-        }
     }
 
-    let request = new Request(`https://api.pubg.com/shards/xbox/matches/${ matchId }`, gameInit);
+    // let request = new Request(`https://api.pubg.com/shards/xbox/matches/${ matchId }`, gameInit);
+    let request = new Request(`/pubg/gamertag/${ matchId }`, gameInit)
     return fetch(request).then(function(response) {
-        if(response.ok) {
-            return response.json().then(match => {
-                return match
-            })
-        }
+        return response
     })
 }
 window.getMatch = getMatch;
-
+//
 export const getTelemetry = (url) => {
     const telemetryInit = {
         method: 'get',
