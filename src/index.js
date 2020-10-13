@@ -13,14 +13,16 @@ document.addEventListener("DOMContentLoaded", () => {
     let clips = [];
     async function getPlayer() {
         let matches = await getPlayerByName(gamertag);
+        // console.log(matches);
         actualMatches = matches.map(async match => {
             return await getMatch(match.id)
         })
 
         let games = await Promise.allSettled(actualMatches);
         // console.log(games)
+
         games.forEach(async match => {
-            if(match.value) {
+            if(match.value){
                 if(match.value.included) {
                     match.value.included.forEach(async ele => {
                         if(ele.id === match.value.data.relationships.assets.data[0].id) {

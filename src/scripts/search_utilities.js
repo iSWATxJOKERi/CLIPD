@@ -28,7 +28,7 @@ export const getMatch = (matchId) => {
     // let request = new Request(`https://api.pubg.com/shards/xbox/matches/${ matchId }`, gameInit);
     let request = new Request(`/pubg/gamertag/${ matchId }`, gameInit)
     return fetch(request).then(function(response) {
-        return response
+        return response.json()
     })
 }
 window.getMatch = getMatch;
