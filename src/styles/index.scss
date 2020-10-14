@@ -14,6 +14,7 @@ body {
     border-radius: 57px;
     border: 1px solid silver;
     padding-left: 35px;
+    margin-bottom: 20px;
     input {
         box-sizing: border-box;
         height: 90%;
@@ -43,4 +44,44 @@ body {
 .player-search-errors {
     margin-bottom: 50px;
     color: green;
+}
+
+.parent-container {
+    margin: auto;
+    width: 50%;
+    span:hover {
+        cursor: pointer;
+    }
+}
+
+.loading {
+    color: green;
+}
+
+.getStreams {
+    position: relative;
+    width: 35%;
+    span {
+        margin-left: 5px;
+    }
+    span:hover {
+        cursor: pointer;
+        color: green;
+    }
+    .fa-tv {
+        color: green;
+    }
+}
+
+.input-container {
+    position: absolute;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    top: 40px;
+    right: 301px;
+    height: 200px;
+    width: 300px;
+    border: 1px solid silver;
+    border-radius: 30px;
 }

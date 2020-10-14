@@ -125,7 +125,7 @@ export const timeGreaterThan2 = (t1, t2, seconds) => {
     // debugger
     let t3 = new Date(t1);
     let t4 = new Date(t2);
-    t4.setHours(t4.getHours(), t4.getMinutes(), t4.getSeconds + seconds);
+    t4.setHours(t4.getHours(), t4.getMinutes(), t4.getSeconds() + seconds);
     if (t3 <= t4) {
         return true
     } else {
@@ -154,6 +154,6 @@ export const timestamp = (t1, t2, seconds) => {
     // debugger
     let t3 = new Date(t1);
     let t4 = new Date(t2);
-    t4.setHours(t4.getHours(), t4.getMinutes(), t4.getSeconds + seconds);
+    t4.setHours(t4.getHours(), t4.getMinutes(), t4.getSeconds() + seconds);
     return ((t4 - t3) / 1000)
 }
