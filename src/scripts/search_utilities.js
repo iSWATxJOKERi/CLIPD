@@ -155,5 +155,11 @@ export const timestamp = (t1, t2, seconds) => {
     let t3 = new Date(t1);
     let t4 = new Date(t2);
     t4.setHours(t4.getHours(), t4.getMinutes(), t4.getSeconds() + seconds);
-    return ((t4 - t3) / 1000)
+    let secs = ((t4 - t3) / 1000);
+    // let nT = t4.setHours(t4.getHours(), t4.getMinutes(), t4.getSeconds() - secs);
+    // let eventTimestamp = nT - (new Date(t2));
+    let t = new Date(null);
+    t.setSeconds(seconds - secs);
+    let a = t.toISOString().substr(11, 8).split(":");
+    return a[0] + "h" + a[1] + "m" + a[2] + "s"
 }
