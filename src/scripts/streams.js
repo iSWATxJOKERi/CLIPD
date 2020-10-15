@@ -30,9 +30,9 @@ export const displayStreams = (events, videos, gtag) => {
     
     const listOfVids = document.createElement("ul");
     listOfVids.classList.add("list-of-vids");
-    for(let j = 0; j < videos.length; j++) {
+    for(let i = 0; i < videos.length; i++) {
         const ul = document.createElement("ul");
-        ul.innerHTML = `<h3>${ clips[i].vod.title }</h3><span>killing ${ clips[i].created_at }</span>`;
+        ul.innerHTML = `<h3>${ clips[i].vod.title }</h3><span>${ clips[i].vod.created_at }</span>`;
         ul.classList.add("streamsBox");
         const modal = document.createElement("section");
         modal.classList.add("modal2");
@@ -45,12 +45,13 @@ export const displayStreams = (events, videos, gtag) => {
         ifrm.setAttribute("frameborder", "0");
         ifrm.setAttribute("scrolling", "no");
         ifrm.setAttribute("allowfullscreen", "true");
-        ifrm.classList.add("frame");
+        ifrm.classList.add("frame2");
         modal_content.appendChild(ifrm);
-        for(let i = 0; i < clips.length; i++) {
+        for(let j = 0; j < clips.length; j++) {
             const li = document.createElement("li");
-            li.innerHTML = `Killer:${ clips[i].event.killer.name } Victim:${ clips[i].event.victim.name }`;
-            li.classList.add(`${ clips[i].event.killer.name === gamertag ? "gr" : "re" }`)
+            // debugger
+            li.innerHTML = `Killer:${ clips[j].event.killer ? (clips[j].event.killer.name) : "Environment" } Victim:${ clips[j].event.victim.name }`;
+            li.classList.add(`${ clips[j].event.killer ? (clips[j].event.killer.name === gtag ? "gr" : "re") : "re" }`)
             modal_content.appendChild(li);
         }
         modal.appendChild(modal_content);
@@ -66,7 +67,7 @@ export const displayStreams = (events, videos, gtag) => {
     parent.appendChild(btn);
     document.body.appendChild(parent);
 
-    document.querySelectorAll('..streamsBox').forEach(item => {
+    document.querySelectorAll('.streamsBox').forEach(item => {
         const frm = item.querySelector('.modal2');
         const btn = document.querySelector('.close');
         item.addEventListener('click', e => {
