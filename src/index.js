@@ -2,6 +2,7 @@ import '../src/styles/index.scss';
 import { getMatch, getPlayerByName, getTwitchUser, getTelemetry, getVideos, getPubgVideos, timeGreaterThan, timeGreaterThan2, timestamp } from './scripts/search_utilities';
 import "regenerator-runtime/runtime";
 import { noVideosFound, videosFound } from './scripts/no_videos_found';
+import { displayStreams } from './scripts/streams';
 
 document.addEventListener("DOMContentLoaded", () => {
     let BLACKLISTED = {};
@@ -36,7 +37,9 @@ document.addEventListener("DOMContentLoaded", () => {
             const uname = document.getElementsByClassName("un-field")[0].value;
             const gtag = document.getElementsByClassName("gt-field")[0].value;
             let allVids = await getStreams(uname, gtag);
-            displayStreams(kAV, allVids);
+            // console.log(allVids);
+            // debugger
+            displayStreams(kAV, allVids, gtag);
         });
 
         async function getStreams(uname, gtag) {
@@ -71,40 +74,40 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                 })
             })
-            console.log(kAV);
+            // console.log(kAV);
             
-            // let twitchUser = await getTwitchUser(uname).then(function(response) {
-            //     if(response.ok) {
-            //         return response.json().then(json => {
-            //             return json
-            //         })
-            //     } else {
-            //         return false
-            //     }
-            // })
-            // if(twitchUser) {
-            //     if(twitchUser.data.length > 0) {
-            //         let videos = await getVideos(twitchUser.data[0].id);
-            //         if(videos.data.length > 0) {
-            //             videos.data.map(async vid => {
-            //                 let clip = await getPubgVideos(vid.id).then(function(response) {
-            //                     if(response.ok) {
-            //                         return response.json()
-            //                     }else {
-            //                         return false
-            //                     }
-            //                 })
-            //                 if(clip) {
-            //                     // debugger
-            //                     if(clip.game === "PLAYERUNKNOWN'S BATTLEGROUNDS") {
-            //                         streams.push(clip);
-            //                     }
-            //                 }
-            //             })
-            //             return streams;
-            //         }
-            //     }
-            // }
+            let twitchUser = await getTwitchUser(uname).then(function(response) {
+                if(response.ok) {
+                    return response.json().then(json => {
+                        return json
+                    })
+                } else {
+                    return false
+                }
+            })
+            if(twitchUser) {
+                if(twitchUser.data.length > 0) {
+                    let videos = await getVideos(twitchUser.data[0].id);
+                    if(videos.data.length > 0) {
+                        videos.data.map(async vid => {
+                            let clip = await getPubgVideos(vid.id).then(function(response) {
+                                if(response.ok) {
+                                    return response.json()
+                                }else {
+                                    return false
+                                }
+                            })
+                            if(clip) {
+                                // debugger
+                                if(clip.game === "PLAYERUNKNOWN'S BATTLEGROUNDS") {
+                                    streams.push(clip);
+                                }
+                            }
+                        })
+                        return streams;
+                    }
+                }
+            }
         }
     }
 
