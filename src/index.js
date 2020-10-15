@@ -7,6 +7,7 @@ import { displayStreams } from './scripts/streams';
 document.addEventListener("DOMContentLoaded", () => {
     let BLACKLISTED = {};
     let kAV = [];
+    let actual;
     let streams = [];
     let gamertag = document.getElementsByClassName("gamertag-field")[0].value;
     const container = document.getElementsByClassName("getStreams")[0];
@@ -45,11 +46,11 @@ document.addEventListener("DOMContentLoaded", () => {
         async function getStreams(uname, gtag) {
             let matches = await getPlayerByName(gtag);
             // console.log(matches);
-            actualMatches = matches.map(async match => {
+            actual = matches.map(async match => {
                 return await getMatch(match.id)
             })
     
-            let games = await Promise.allSettled(actualMatches);
+            let games = await Promise.allSettled(actual);
             // console.log(games)
     
             games.forEach(async match => {
