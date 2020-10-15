@@ -5,15 +5,18 @@ export const displayStreams = (events, videos, gtag) => {
     splash.style.display = "none";
     
     let clips = [];
+    // debugger
     for(let j = 0; j < videos.length; j++) {
+        // debugger
         for(let i = 0; i < events.length; i++) {
+            // debugger
             if(timeGreaterThan(events[i]._D, videos[j].created_at) && timeGreaterThan2(events[i]._D, videos[j].created_at, videos[j].length)) {
+                // debugger
                 clips.push({"url": videos[j].url, "timestampInSeconds": timestamp(events[i]._D, videos[j].created_at, videos[j].length), "event": events[i], "vod": videos[j]})
             }
         }
     }
 
-    debugger
     const parent = document.createElement("section")
     const button = document.createElement("span");
     button.innerHTML = '&larr;';
@@ -27,21 +30,30 @@ export const displayStreams = (events, videos, gtag) => {
     
     const listOfVids = document.createElement("ul");
     listOfVids.classList.add("list-of-vids");
-    for(let i = 0; i < clips.length; i++) {
+    for(let j = 0; j < videos.length; j++) {
         const ul = document.createElement("ul");
-        ul.innerHTML = `<h3>${ clips[i].event.killer.name }</h3><span>killing ${ clips[i].event.victim.name }</span>`;
-        ul.classList.add(`${ clips[i].event.killer.name === gtag ? "g" : "r" }`, "videoBox");
+        ul.innerHTML = `<h3>${ clips[i].vod.title }</h3><span>killing ${ clips[i].created_at }</span>`;
+        ul.classList.add("streamsBox");
         const modal = document.createElement("section");
-        modal.classList.add("modal");
+        modal.classList.add("modal2");
+        const modal_content = document.createElement("div");
+        modal_content.classList.add("modal-content");
         const ifrm = document.createElement("iframe");
-        ifrm.setAttribute("src", `https://player.twitch.tv/?video=${ clips[i].vod._id }&parent=localhost&time=${ clips[i].timestampInSeconds }`);
+        ifrm.setAttribute("src", `https://player.twitch.tv/?video=${ clips[i].vod._id }&parent=localhost`);
         ifrm.setAttribute("height", "540");
         ifrm.setAttribute("width", "970");
         ifrm.setAttribute("frameborder", "0");
         ifrm.setAttribute("scrolling", "no");
         ifrm.setAttribute("allowfullscreen", "true");
         ifrm.classList.add("frame");
-        modal.appendChild(ifrm);
+        modal_content.appendChild(ifrm);
+        for(let i = 0; i < clips.length; i++) {
+            const li = document.createElement("li");
+            li.innerHTML = `Killer:${ clips[i].event.killer.name } Victim:${ clips[i].event.victim.name }`;
+            li.classList.add(`${ clips[i].event.killer.name === gamertag ? "gr" : "re" }`)
+            modal_content.appendChild(li);
+        }
+        modal.appendChild(modal_content);
         ul.appendChild(modal);
         listOfVids.appendChild(ul);
     }
@@ -54,8 +66,8 @@ export const displayStreams = (events, videos, gtag) => {
     parent.appendChild(btn);
     document.body.appendChild(parent);
 
-    document.querySelectorAll('.videoBox').forEach(item => {
-        const frm = item.querySelector('.modal');
+    document.querySelectorAll('..streamsBox').forEach(item => {
+        const frm = item.querySelector('.modal2');
         const btn = document.querySelector('.close');
         item.addEventListener('click', e => {
             frm.style.display = "flex";
@@ -65,7 +77,7 @@ export const displayStreams = (events, videos, gtag) => {
 
     document.querySelectorAll('.close').forEach(x => {
         x.addEventListener('click', e => {
-            document.querySelectorAll('.modal').forEach(frm => {
+            document.querySelectorAll('.modal2').forEach(frm => {
                 frm.style.display = "none";
                 x.style.display = "none";
             })
