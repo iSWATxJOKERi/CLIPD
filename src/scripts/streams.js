@@ -24,9 +24,9 @@ export const displayStreams = (events, videos, gtag) => {
     parent.appendChild(button);
     const container = document.createElement("section");
     parent.classList.add("parent-container");
-    const player = document.createElement("div");
-    player.innerHTML = `<h2>${ gtag }</h2>`;
-    container.appendChild(player);
+    const plyr = document.createElement("div");
+    plyr.innerHTML = `<h2>${ gtag }</h2>`;
+    container.appendChild(plyr);
     
     const listOfVids = document.createElement("ul");
     listOfVids.classList.add("list-of-vids");
@@ -39,30 +39,9 @@ export const displayStreams = (events, videos, gtag) => {
         const modal_content = document.createElement("div");
         modal_content.classList.add("modal-content");
 
-        // const ifrm = document.createElement("script");
-        // ifrm.setAttribute("src", "https://player.twitch.tv/js/embed/v1.js");
         const div = document.createElement("div");
         div.setAttribute("id", "2");
-        const ifrm2 = document.createElement("script");
-        ifrm2.setAttribute("type", "text/javascript");
-        const a = () => {
-            var options = {
-                width: 970,
-                height: 540,
-                video: "v769618078"
-            };
-            var player = new Twitch.Player("2", options);
-            player.setVolume(0.5);
-            document.querySelectorAll('.nostylist').forEach(event => {
-                event.addEventListener('click', () => {
-                    player.seek(Number(event.id));
-                })
-            })
-        }
-        ifrm2.innerHTML = a;
-        // modal_content.appendChild(ifrm);
         modal_content.appendChild(div);
-        modal_content.appendChild(ifrm2);
 
         for(let j = 0; j < clips.length; j++) {
             const li = document.createElement("li");
@@ -77,6 +56,7 @@ export const displayStreams = (events, videos, gtag) => {
         listOfVids.appendChild(ul);
     }
 
+
     const btn = document.createElement("span");
     btn.innerHTML = '&#10006;';
     btn.classList.add("close");
@@ -85,6 +65,19 @@ export const displayStreams = (events, videos, gtag) => {
     parent.appendChild(btn);
     document.body.appendChild(parent);
 
+    var options = {
+        width: 970,
+        height: 540,
+        video: "v769618078"
+    };
+    var player = new Twitch.Player("2", options);
+    player.setVolume(0.5);
+    document.querySelectorAll('.nostylist').forEach(event => {
+        event.addEventListener('click', () => {
+            player.seek(Number(event.id));
+        })
+    })
+    
     document.querySelectorAll('.streamsBox').forEach(item => {
         const frm = item.querySelector('.modal2');
         const btn = document.querySelector('.close');
