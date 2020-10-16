@@ -159,7 +159,7 @@ export const timestamp = (t1, t2, seconds) => {
     // let nT = t4.setHours(t4.getHours(), t4.getMinutes(), t4.getSeconds() - secs);
     // let eventTimestamp = nT - (new Date(t2));
     let t = new Date(null);
-    t.setSeconds(seconds - secs);
+    t.setSeconds((seconds - secs) - 10);
     let a = t.toISOString().substr(11, 8).split(":");
     return a[0] + "h" + a[1] + "m" + a[2] + "s"
 }
@@ -170,5 +170,5 @@ export const timestamp2 = (t1, t2, seconds) => {
     t4.setHours(t4.getHours(), t4.getMinutes(), t4.getSeconds() + seconds);
     let secs = ((t4 - t3) / 1000);
     let nT = t4.setHours(t4.getHours(), t4.getMinutes(), t4.getSeconds() - secs);
-    return ((nT - (new Date(t2))) / 1000);
+    return ((nT - (new Date(t2))) / 1000) - 10;
 }

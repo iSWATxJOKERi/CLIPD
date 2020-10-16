@@ -47,7 +47,7 @@ export const videosFound = (gamertag, clips) => {
         const modal = document.createElement("section");
         modal.classList.add("modal");
         const ifrm = document.createElement("iframe");
-        ifrm.setAttribute("src", `https://player.twitch.tv/?video=${ clips[i].value.vod._id }&parent=localhost&time=${ clips[i].value.timestampInSeconds }`);
+        ifrm.setAttribute("src", `https://player.twitch.tv/?video=${ clips[i].value.vod._id }&autoplay=false&parent=localhost&time=${ clips[i].value.timestampInSeconds }`);
         ifrm.setAttribute("height", "540");
         ifrm.setAttribute("width", "970");
         ifrm.setAttribute("frameborder", "0");

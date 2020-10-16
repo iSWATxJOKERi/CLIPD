@@ -33,13 +33,21 @@ document.addEventListener("DOMContentLoaded", () => {
         input.appendChild(submit);
         container.appendChild(input);
 
+
         document.querySelector(".submit-stream").addEventListener("click", async function() {
             // debugger
+
             const uname = document.getElementsByClassName("un-field")[0].value;
             const gtag = document.getElementsByClassName("gt-field")[0].value;
+
+            if(uname && gtag) {
+                const fp = document.createElement("span");
+                fp.classList.add("loading1", "load");
+                fp.innerHTML = 'Fetching Videos ...';
+                input.appendChild(fp);
+            }
+
             let allVids = await getStreams(uname, gtag);
-            // console.log(allVids);
-            // debugger
             displayStreams(kAV, allVids, gtag);
         });
 

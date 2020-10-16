@@ -1,3 +1,4 @@
+import dateConverter from './date_converter';
 import { timeGreaterThan, timeGreaterThan2, timestamp, timestamp2 } from './search_utilities';
 
 export const displayStreams = (events, videos, gtag) => {
@@ -5,18 +6,21 @@ export const displayStreams = (events, videos, gtag) => {
     splash.style.display = "none";
     
     let clips = [];
+    let videoHasEvents = {};
+
     debugger
     for(let j = 0; j < videos.length; j++) {
-        // debugger
         for(let i = 0; i < events.length; i++) {
-            // debugger
             if(timeGreaterThan(events[i]._D, videos[j].created_at) && timeGreaterThan2(events[i]._D, videos[j].created_at, videos[j].length)) {
-                // debugger
-                clips.push({"url": videos[j].url, "seek": timestamp2(events[i]._D, videos[j].created_at, videos[j].length), "timestampInSeconds": timestamp(events[i]._D, videos[j].created_at, videos[j].length), "event": events[i], "vod": videos[j]})
+                videoHasEvents[videos[j]._id] = true;
+                clips.push({"video_id": videos[j]._id, "url": videos[j].url, "seek": timestamp2(events[i]._D, videos[j].created_at, videos[j].length), "timestampInSeconds": timestamp(events[i]._D, videos[j].created_at, videos[j].length), "event": events[i], "vod": videos[j]})
             }
         }
     }
 
+    console.log(videos);
+    console.log(clips);
+    console.log(events);
     const parent = document.createElement("section")
     const button = document.createElement("span");
     button.innerHTML = '&larr;';
@@ -31,63 +35,74 @@ export const displayStreams = (events, videos, gtag) => {
     const listOfVids = document.createElement("ul");
     listOfVids.classList.add("list-of-vids");
     for(let i = 0; i < videos.length; i++) {
-        const ul = document.createElement("ul");
-        ul.innerHTML = `<h3>${ clips[i].vod.title }</h3><span>${ clips[i].vod.created_at }</span>`;
-        ul.classList.add("streamsBox");
-        const modal = document.createElement("section");
-        modal.classList.add("modal2");
-        const modal_content = document.createElement("div");
-        modal_content.classList.add("modal-content");
+        if(videoHasEvents[videos[i]._id]) {
+            const ul = document.createElement("ul");
+            ul.innerHTML = `<h3>${ videos[i].title }</h3><span>${ dateConverter(videos[i].created_at) }</span>`;
+            ul.classList.add("streamsBox");
+            const modal = document.createElement("section");
+            modal.classList.add("modal2");
+            const modal_content = document.createElement("div");
+            modal_content.classList.add("modal-content");
 
-        const div = document.createElement("div");
-        div.setAttribute("id", "2");
-        modal_content.appendChild(div);
+            for(let j = 0; j < clips.length; j++) {
+                if(clips[j].video_id === videos[i]._id) {
+                    const li = document.createElement("li");
+                    // debugger
+                    li.innerHTML = `Killer:${ clips[j].event.killer ? (clips[j].event.killer.name) : "Environment" } Victim:${ clips[j].event.victim.name }`;
+                    li.classList.add(`${ clips[j].event.killer ? (clips[j].event.killer.name === gtag ? "gr" : "re") : "re" }`, "nostylist");
+                    li.setAttribute("id", `${ clips[j].seek }`)
+                    modal_content.appendChild(li);
+                }
+            }
+            modal.appendChild(modal_content);
 
-        for(let j = 0; j < clips.length; j++) {
-            const li = document.createElement("li");
-            // debugger
-            li.innerHTML = `Killer:${ clips[j].event.killer ? (clips[j].event.killer.name) : "Environment" } Victim:${ clips[j].event.victim.name }`;
-            li.classList.add(`${ clips[j].event.killer ? (clips[j].event.killer.name === gtag ? "gr" : "re") : "re" }`, "nostylist");
-            li.setAttribute("id", `${ clips[j].seek }`)
-            modal_content.appendChild(li);
+            const div = document.createElement("div");
+            div.setAttribute("id", `${ i }`);
+            div.classList.add(".vframe");
+            modal.appendChild(div);
+
+            ul.appendChild(modal);
+            listOfVids.appendChild(ul);
         }
-        modal.appendChild(modal_content);
-        ul.appendChild(modal);
-        listOfVids.appendChild(ul);
     }
 
 
     const btn = document.createElement("span");
     btn.innerHTML = '&#10006;';
-    btn.classList.add("close");
+    btn.classList.add("close2");
     container.appendChild(listOfVids)
     parent.appendChild(container);
     parent.appendChild(btn);
     document.body.appendChild(parent);
 
-    var options = {
-        width: 970,
-        height: 540,
-        video: "v769618078"
-    };
-    var player = new Twitch.Player("2", options);
-    player.setVolume(0.5);
-    document.querySelectorAll('.nostylist').forEach(event => {
-        event.addEventListener('click', () => {
-            player.seek(Number(event.id));
-        })
-    })
-    
+    for(let i = 0; i < videos.length; i++) {
+        if(videoHasEvents[videos[i]._id]) {
+            var options = {
+                width: 970,
+                height: 540,
+                autoplay: false,
+                video: `${ videos[i]._id }`
+            };
+            var player = new Twitch.Player(`${ i }`, options);
+            player.setVolume(0.5);
+            document.querySelectorAll('.nostylist').forEach(event => {
+                event.addEventListener('click', () => {
+                    player.seek(Number(event.id));
+                })
+            })
+        }
+    }
+
     document.querySelectorAll('.streamsBox').forEach(item => {
         const frm = item.querySelector('.modal2');
-        const btn = document.querySelector('.close');
+        const btn = document.querySelector('.close2');
         item.addEventListener('click', e => {
             frm.style.display = "flex";
             btn.style.display = "block";
         })
     })
 
-    document.querySelectorAll('.close').forEach(x => {
+    document.querySelectorAll('.close2').forEach(x => {
         x.addEventListener('click', e => {
             document.querySelectorAll('.modal2').forEach(frm => {
                 frm.style.display = "none";
