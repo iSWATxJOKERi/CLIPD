@@ -1,6 +1,8 @@
 export const noVideosFound = (gamertag) => {
     const splash = document.getElementsByClassName("splash-content")[0];
     splash.style.display = "none";
+    const logo = document.getElementsByClassName("logo")[0];
+    logo.style.display = "none";
     const parent = document.createElement("section")
     const button = document.createElement("span");
     button.innerHTML = '&larr;';
@@ -87,6 +89,7 @@ export const videosFound = (gamertag, clips) => {
 
     button.onclick = function() {
         splash.style.display = "flex";
+        logo.style.display = "none";
         parent.style.display = "none";
     }
 }

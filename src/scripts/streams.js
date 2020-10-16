@@ -4,6 +4,8 @@ import { timeGreaterThan, timeGreaterThan2, timestamp, timestamp2 } from './sear
 export const displayStreams = (events, videos, gtag) => {
     const splash = document.getElementsByClassName("splash-content")[0];
     splash.style.display = "none";
+    const logo = document.getElementsByClassName("logo")[0];
+    logo.style.display = "none";
     
     let clips = [];
     let videoHasEvents = {};
@@ -113,6 +115,7 @@ export const displayStreams = (events, videos, gtag) => {
 
     button.onclick = function() {
         splash.style.display = "flex";
+        logo.style.display = "flex";
         parent.style.display = "none";
     }
 }

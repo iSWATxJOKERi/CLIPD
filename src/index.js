@@ -124,6 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let clips = [];
     async function getPlayer() {
         const splash = document.getElementsByClassName("splash-content")[0];
+        const logo = document.getElementsByClassName("logo")[0];
         const fetchingPlayer = document.createElement("span");
         fetchingPlayer.classList.add("loading1", "loading");
         fetchingPlayer.innerHTML = 'Fetching Player ...';
@@ -274,8 +275,10 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log(final);
         if(final.length === 0) {
             fetchingVideos.style.display = "none";
+            logo.style.display = "none";
             noVideosFound(gamertag);
         } else {
+            logo.style.display = "none";
             fetchingVideos.style.display = "none";
             videosFound(gamertag, final);
         }
