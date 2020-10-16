@@ -8,7 +8,7 @@ export const displayStreams = (events, videos, gtag) => {
     let clips = [];
     let videoHasEvents = {};
 
-    debugger
+    // debugger
     for(let j = 0; j < videos.length; j++) {
         for(let i = 0; i < events.length; i++) {
             if(timeGreaterThan(events[i]._D, videos[j].created_at) && timeGreaterThan2(events[i]._D, videos[j].created_at, videos[j].length)) {
@@ -18,9 +18,6 @@ export const displayStreams = (events, videos, gtag) => {
         }
     }
 
-    console.log(videos);
-    console.log(clips);
-    console.log(events);
     const parent = document.createElement("section")
     const button = document.createElement("span");
     button.innerHTML = '&larr;';
