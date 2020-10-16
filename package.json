@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "engines": {
+    "node": ">=8.1.0"
+  },
   "browserslist": [
     "last 1 version",
     "> 1%",
@@ -11,10 +14,10 @@
   ],
   "proxy": "http://localhost:8000",
   "scripts": {
-    "start": "webpack-dev-server --config webpack.dev.js",
+    "devStart": "webpack-dev-server --config webpack.dev.js",
     "webpack:watch": "webpack --watch --config webpack.dev.js",
-    "webpack:build": "webpack --config webpack.prod.js  --optimize-minimize",
-    "server": "node app.js"
+    "build": "webpack --config webpack.prod.js  --optimize-minimize",
+    "start": "node app.js"
   },
   "author": "",
   "license": "ISC",

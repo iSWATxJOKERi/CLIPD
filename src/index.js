@@ -104,21 +104,20 @@ document.addEventListener("DOMContentLoaded", () => {
                 if(twitchUser.data.length > 0) {
                     let videos = await getVideos(twitchUser.data[0].id);
                     if(videos.data.length > 0) {
-                        videos.data.map(async vid => {
-                            let clip = await getPubgVideos(vid.id).then(function(response) {
+                        let clips = [];
+                        for(const vid of videos.data) {
+                            clips.push(getPubgVideos(vid.id).then(function(response) {
                                 if(response.ok) {
                                     return response.json()
                                 }else {
                                     return false
                                 }
-                            })
-                            if(clip) {
-                                // debugger
-                                if(clip.game === "PLAYERUNKNOWN'S BATTLEGROUNDS") {
-                                    streams.push(clip);
-                                }
-                            }
-                        })
+                            }))
+                        }
+                        let c = await Promise.all(clips);
+                        console.log(c);
+                        streams = c.filter(ele => ele.game === "PLAYERUNKNOWN'S BATTLEGROUNDS");
+                        // debugger
                         return streams;
                     }
                 }
