@@ -75,6 +75,10 @@ export const displayStreams = (events, videos, gtag) => {
     parent.appendChild(btn);
     document.body.appendChild(parent);
 
+    let names = [];
+    for(let j = 0; j < videos.length; j++) {
+        names.push("player" + j)
+    }
     for(let i = 0; i < videos.length; i++) {
         if(videoHasEvents[videos[i]._id]) {
             var options = {
@@ -83,11 +87,11 @@ export const displayStreams = (events, videos, gtag) => {
                 autoplay: false,
                 video: `${ videos[i]._id }`
             };
-            var player = new Twitch.Player(`${ i }`, options);
-            player.setVolume(0.5);
+            names[i] = new Twitch.Player(`${ i }`, options);
+            names[i].setVolume(0.5);
             document.querySelectorAll('.nostylist').forEach(event => {
                 event.addEventListener('click', () => {
-                    player.seek(Number(event.id));
+                    names[i].seek(Number(event.id));
                 })
             })
         }
