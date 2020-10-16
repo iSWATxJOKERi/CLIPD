@@ -12,42 +12,50 @@ document.addEventListener("DOMContentLoaded", () => {
     let gamertag = document.getElementsByClassName("gamertag-field")[0].value;
     const container = document.getElementsByClassName("getStreams")[0];
     document.querySelector(".fa-search").addEventListener("click", getPlayer);
-    document.querySelector("#getStreams").addEventListener("click", getInput);
+
+    const input = document.createElement("section");
+    input.classList.add("input-container");
+    input.style.display = "none";
+    const un = document.createElement("input");
+    un.setAttribute("type", "text");
+    un.setAttribute("placeholder", "Twitch User");
+    un.classList.add("un-field");
+    input.appendChild(un);
+    const gt = document.createElement("input");
+    gt.setAttribute("type", "text");
+    gt.setAttribute("placeholder", "PUBG User");
+    gt.classList.add("gt-field");
+    input.appendChild(gt);
+    const submit = document.createElement("span");
+    submit.classList.add("submit-stream");
+    submit.innerHTML = "Search";
+    input.appendChild(submit);
+    container.appendChild(input);
+
+    document.getElementById("getStreams").addEventListener("click", e => {
+        if(input.style.display === "flex") {
+            input.style.display = "none";
+        }else {
+            input.style.display = "flex";
+        }
+    })
+
+    document.querySelector(".submit-stream").addEventListener("click", getInput);
 
     async function getInput() {
-        const input = document.createElement("section");
-        input.classList.add("input-container");
-        const un = document.createElement("input");
-        un.setAttribute("type", "text");
-        un.setAttribute("placeholder", "Twitch User");
-        un.classList.add("un-field");
-        input.appendChild(un);
-        const gt = document.createElement("input");
-        gt.setAttribute("type", "text");
-        gt.setAttribute("placeholder", "PUBG User");
-        gt.classList.add("gt-field");
-        input.appendChild(gt);
-        const submit = document.createElement("span");
-        submit.classList.add("submit-stream");
-        submit.innerHTML = "Search";
-        input.appendChild(submit);
-        container.appendChild(input);
+        const uname = document.getElementsByClassName("un-field")[0].value;
+        const gtag = document.getElementsByClassName("gt-field")[0].value;
 
+        if(uname && gtag) {
+            const fp = document.createElement("span");
+            fp.classList.add("loading1", "load");
+            fp.innerHTML = 'Fetching Videos ...';
+            input.appendChild(fp);
+        }
 
-        document.querySelector(".submit-stream").addEventListener("click", async function() {
-            const uname = document.getElementsByClassName("un-field")[0].value;
-            const gtag = document.getElementsByClassName("gt-field")[0].value;
+        let allVids = await getStreams(uname, gtag);
+        displayStreams(kAV, allVids, gtag);
 
-            if(uname && gtag) {
-                const fp = document.createElement("span");
-                fp.classList.add("loading1", "load");
-                fp.innerHTML = 'Fetching Videos ...';
-                input.appendChild(fp);
-            }
-
-            let allVids = await getStreams(uname, gtag);
-            displayStreams(kAV, allVids, gtag);
-        });
 
         async function getStreams(uname, gtag) {
             let matches = await getPlayerByName(gtag);
