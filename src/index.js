@@ -35,8 +35,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         document.querySelector(".submit-stream").addEventListener("click", async function() {
-            // debugger
-
             const uname = document.getElementsByClassName("un-field")[0].value;
             const gtag = document.getElementsByClassName("gt-field")[0].value;
 
