@@ -10,6 +10,7 @@ export const displayStreams = (events, videos, gtag) => {
     let clips = [];
     let videoHasEvents = {};
 
+    debugger
     for(let j = 0; j < videos.length; j++) {
         for(let i = 0; i < events.length; i++) {
             if(timeGreaterThan(events[i]._D, videos[j].created_at) && timeGreaterThan2(events[i]._D, videos[j].created_at, videos[j].length)) {
