@@ -5,11 +5,11 @@ const fetch = require("node-fetch");
 require("dotenv").config();
 const PORT = process.env.PORT || 8080; // process.env accesses heroku's environment variables
 
-// app.use(express.static("dist"));
+app.use(express.static("dist"));
 
-// app.get("/", (request, res) => {
-//   res.sendFile(path.join(__dirname, "./dist/index.html"));
-// });
+app.get("/", (request, res) => {
+  res.sendFile(path.join(__dirname, "./dist/index.html"));
+});
 
 // create route to get single book by its isbn
 app.get("/pubg/gamertag/:matchId", (req, res) => {
@@ -36,9 +36,9 @@ app.listen(PORT, () => {
   console.log(`listening on ${PORT}`);
 });
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("dist"));
-  app.get("/", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "./dist/index.html"));
-  });
-}
+// if (process.env.NODE_ENV === "production") {
+//   app.use(express.static("dist"));
+//   app.get("/", (req, res) => {
+//     res.sendFile(path.resolve(__dirname, "./dist/index.html"));
+//   });
+// }
