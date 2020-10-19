@@ -1,4 +1,4 @@
 node_modules/
-/src/config/keys.js
+/src/config/keys_dev.js
 /dist/main.css
 /dist/main.js
