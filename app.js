@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const fetch = require("node-fetch");
-require("dotenv").config();
+// require("dotenv").config();
 const PORT = process.env.PORT || 8080; // process.env accesses heroku's environment variables
 
 app.use(express.static("dist"));
@@ -17,7 +17,7 @@ app.get("/pubg/gamertag/:matchId", (req, res) => {
     const gameInit = {
         method: 'get',
         headers: {
-            Accept: 'application/vnd.api+json'
+          Accept: 'application/vnd.api+json'
         }
     }
 
