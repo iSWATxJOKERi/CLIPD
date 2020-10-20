@@ -49,15 +49,20 @@ export const videosFound = (gamertag, clips) => {
         ul.classList.add(`${ clips[i].value.event.killer.name === gamertag ? "g" : "r" }`, "videoBox");
         const modal = document.createElement("section");
         modal.classList.add("modal");
-        const ifrm = document.createElement("iframe");
-        ifrm.setAttribute("src", `https://player.twitch.tv/?video=${ clips[i].value.vod._id }&autoplay=false&parent=localhost&time=${ clips[i].value.timestampInSeconds }`);
-        ifrm.setAttribute("height", "540");
-        ifrm.setAttribute("width", "970");
-        ifrm.setAttribute("frameborder", "0");
-        ifrm.setAttribute("scrolling", "no");
-        ifrm.setAttribute("allowfullscreen", "true");
-        ifrm.classList.add("frame");
-        modal.appendChild(ifrm);
+        // const ifrm = document.createElement("iframe");
+        // ifrm.setAttribute("src", `https://player.twitch.tv/?video=${ clips[i].value.vod._id }&autoplay=false&parent=localhost&time=${ clips[i].value.timestampInSeconds }`);
+        // ifrm.setAttribute("height", "540");
+        // ifrm.setAttribute("width", "970");
+        // ifrm.setAttribute("frameborder", "0");
+        // ifrm.setAttribute("scrolling", "no");
+        // ifrm.setAttribute("allowfullscreen", "true");
+        // ifrm.classList.add("frame");
+        // modal.appendChild(ifrm);
+        const div = document.createElement("div");
+        div.setAttribute("id", `${ i }`);
+        div.classList.add("vframe2");
+        modal.appendChild(div);
+
         ul.appendChild(modal);
         listOfVids.appendChild(ul);
     }
@@ -69,6 +74,29 @@ export const videosFound = (gamertag, clips) => {
     parent.appendChild(container);
     parent.appendChild(btn);
     document.body.appendChild(parent);
+
+    
+    let names = [];
+    for(let j = 0; j < clips.length; j++) {
+        names.push("player" + j)
+    }
+    for(let i = 0; i < clips.length; i++) {
+        var options = {
+            width: 970,
+            height: 540,
+            autoplay: false,
+            time: `${ clips[i].value.timestampInSeconds }`,
+            video: `${ clips[i].value.vod._id }`
+        };
+        names[i] = new Twitch.Player(`${ i }`, options);
+        names[i].setVolume(0.5);
+        document.querySelectorAll(".close").forEach(b => {
+            b.addEventListener('click', () => {
+                names[i].pause();
+            })
+        })
+
+    }
 
     document.querySelectorAll('.videoBox').forEach(item => {
         const frm = item.querySelector('.modal');

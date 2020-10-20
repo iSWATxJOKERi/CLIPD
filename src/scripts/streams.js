@@ -93,6 +93,11 @@ export const displayStreams = (events, videos, gtag) => {
                     names[i].seek(Number(event.id));
                 })
             })
+            document.querySelectorAll(".close2").forEach(b => {
+                b.addEventListener('click', () => {
+                    names[i].pause();
+                })
+            })
         }
     }
 
