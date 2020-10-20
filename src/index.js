@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let kAV = [];
     let actual;
     let streams = [];
-    let gamertag = document.getElementsByClassName("gamertag-field")[0].value;
+    // let gamertag = document.getElementsByClassName("gamertag-field")[0].value;
     const container = document.getElementsByClassName("getStreams")[0];
     document.querySelector(".fa-search").addEventListener("click", getPlayer);
 
@@ -115,7 +115,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             }))
                         }
                         let c = await Promise.all(clips);
-                        console.log(c);
+                        // console.log(c);
                         streams = c.filter(ele => ele.game === "PLAYERUNKNOWN'S BATTLEGROUNDS");
                         // debugger
                         return streams;
@@ -130,6 +130,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let telemetryEvents = [];
     let clips = [];
     async function getPlayer() {
+        let gamertag = document.getElementsByClassName("gamertag-field")[0].value;
         const splash = document.getElementsByClassName("splash-content")[0];
         const logo = document.getElementsByClassName("logo")[0];
         const fetchingPlayer = document.createElement("span");
@@ -279,7 +280,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
         let final = await Promise.allSettled(clips);
-        console.log(final);
+        // console.log(final);
         if(final.length === 0) {
             fetchingVideos.style.display = "none";
             logo.style.display = "none";
