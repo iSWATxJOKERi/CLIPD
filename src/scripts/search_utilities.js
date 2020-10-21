@@ -8,7 +8,7 @@ export const getPlayerByName = gamertag => {
             Accept: 'application/vnd.api+json'
         }
     }
-    console.log(Key.pubgAPI);
+    // console.log(Key.pubgAPI);
     let request = new Request(`https://api.pubg.com/shards/xbox/players?filter[playerNames]=${ gamertag }`, playerByNameInit);
     return fetch(request).then(function(response) {
         if(response.ok) {
@@ -17,11 +17,11 @@ export const getPlayerByName = gamertag => {
                 return json.data[0].relationships.matches.data;
             })
         }else {
-            console.log(response)
+            // console.log(response)
         }
     })
 }
-window.getPlayerByName = getPlayerByName;
+// window.getPlayerByName = getPlayerByName;
 
 export const getMatch = (matchId) => {
     const gameInit = {
@@ -34,7 +34,7 @@ export const getMatch = (matchId) => {
         return response.json()
     })
 }
-window.getMatch = getMatch;
+// window.getMatch = getMatch;
 //
 export const getTelemetry = (url) => {
     const telemetryInit = {
@@ -53,7 +53,7 @@ export const getTelemetry = (url) => {
         }
     })
 }
-window.getTelemetry = getTelemetry;
+// window.getTelemetry = getTelemetry;
 
 export const getOAuth = () => {
     const oauthInit = {
@@ -80,7 +80,7 @@ export const getTwitchUser = gamertag => {
     let request = new Request(`https://api.twitch.tv/helix/users?login=${ gamertag }`, twitchUserInit);
     return fetch(request)
 }
-window.getTwitchUser = getTwitchUser;
+// window.getTwitchUser = getTwitchUser;
 
 export const getVideos = userId => {
     const twitchVideosInit = {
@@ -97,7 +97,7 @@ export const getVideos = userId => {
         }
     })
 }
-window.getVideos = getVideos;
+// window.getVideos = getVideos;
 
 export const getPubgVideos = videoId => {
     const twitchPubgInit = {
