@@ -20,9 +20,7 @@ export const noVideosFound = (gamertag) => {
     document.body.appendChild(parent);
 
     button.onclick = function() {
-        splash.style.display = "flex";
-        logo.style.display = "flex";
-        parent.style.display = "none";
+        window.location = '/';
     }
 }
 
@@ -117,8 +115,6 @@ export const videosFound = (gamertag, clips) => {
     })
 
     button.onclick = function() {
-        splash.style.display = "flex";
-        logo.style.display = "flex";
-        parent.style.display = "none";
+        window.location = '/';
     }
 }

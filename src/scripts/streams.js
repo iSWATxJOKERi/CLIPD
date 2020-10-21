@@ -6,6 +6,8 @@ export const displayStreams = (events, videos, gtag) => {
     splash.style.display = "none";
     const logo = document.getElementsByClassName("logo")[0];
     logo.style.display = "none";
+    const fp = document.getElementsByClassName("load")[0];
+    fp.style.display = "none";
     
     let clips = [];
     let videoHasEvents = {};
@@ -120,8 +122,6 @@ export const displayStreams = (events, videos, gtag) => {
     })
 
     button.onclick = function() {
-        splash.style.display = "flex";
-        logo.style.display = "flex";
-        parent.style.display = "none";
+        window.location = '/';
     }
 }
