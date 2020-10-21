@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         async function getStreams(uname, gtag) {
             let matches = await getPlayerByName(gtag);
-            // console.log(matches);
+            console.log(matches);
             actual = matches.map(async match => {
                 return await getMatch(match.id)
             })
@@ -138,7 +138,7 @@ document.addEventListener("DOMContentLoaded", () => {
         fetchingPlayer.innerHTML = 'Fetching Player ...';
         splash.appendChild(fetchingPlayer);
         let matches = await getPlayerByName(gamertag);
-        // console.log(matches);
+        console.log(matches);
         actualMatches = matches.map(async match => {
             return await getMatch(match.id)
         })
