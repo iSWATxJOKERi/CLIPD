@@ -14,6 +14,7 @@
   ],
   "proxy": "http://localhost:8000",
   "scripts": {
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install && npm run build",
     "devStart": "webpack-dev-server --config webpack.dev.js",
     "webpack:watch": "webpack --watch --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js  --optimize-minimize",
@@ -47,7 +48,8 @@
     "dotenv": "^8.2.0",
     "body-parser": "^1.19.0",
     "ejs": "^3.1.5"
-  }, "devDependencies": {
+  },
+  "devDependencies": {
     "nodemon": "^1.11.0"
   }
 }
