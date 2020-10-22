@@ -57,7 +57,7 @@ export const getTwitchUser = gamertag => {
     let request = new Request(`/twitch/${ gamertag }`, twitchUserInit);
     return fetch(request)
 }
-window.getTwitchUser = getTwitchUser;
+// window.getTwitchUser = getTwitchUser;
 
 export const getVideos = userId => {
     const twitchVideosInit = {
@@ -68,7 +68,7 @@ export const getVideos = userId => {
         return response.json()
     })
 }
-window.getVideos = getVideos;
+// window.getVideos = getVideos;
 
 export const getPubgVideos = videoId => {
     const twitchPubgInit = {
@@ -82,7 +82,7 @@ export const getPubgVideos = videoId => {
     return fetch(request)
 }
 
-window.getPubgVideos = getPubgVideos;
+// window.getPubgVideos = getPubgVideos;
 
 
 export const timeGreaterThan = (t1, t2) => {
