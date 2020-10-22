@@ -21,7 +21,7 @@ export const getPlayerByName = gamertag => {
         }
     })
 }
-// window.getPlayerByName = getPlayerByName;
+window.Key = Key;
 
 export const getMatch = (matchId) => {
     const gameInit = {
