@@ -8,10 +8,7 @@ export const getPlayerByName = gamertag => {
             Accept: 'application/vnd.api+json'
         }
     }
-    console.log(process.env);
-    console.log(process.env.NODE_ENV);
-    console.log(process.env.CLIENT_SECRET);
-    console.log(Key.pubgAPI);
+    
     let request = new Request(`https://api.pubg.com/shards/xbox/players?filter[playerNames]=${ gamertag }`, playerByNameInit);
     return fetch(request).then(function(response) {
         if(response.ok) {
@@ -22,7 +19,6 @@ export const getPlayerByName = gamertag => {
         }
     })
 }
-window.Key = Key;
 
 export const getMatch = (matchId) => {
     const gameInit = {

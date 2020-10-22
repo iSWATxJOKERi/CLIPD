@@ -5,6 +5,12 @@ import { noVideosFound, videosFound } from './scripts/no_videos_found';
 import { displayStreams } from './scripts/streams';
 
 document.addEventListener("DOMContentLoaded", () => {
+    const test = document.getElementsByClassName("test")[0];
+    let a;
+    test.addEventListener('click', async () => {
+        a = await getMatch('69fd0de7-2dd3-44aa-b189-487166d309f7');
+        console.log(a);
+    })
     let BLACKLISTED = {};
     let kAV = [];
     let actual;
