@@ -2,23 +2,16 @@ import Key from '../config/keys';
 
 export const getPlayerByName = gamertag => {
     const playerByNameInit = {
-        method: 'get',
-        headers: {
-            Authorization: `Bearer ${ Key.pubgAPI }`,
-            Accept: 'application/vnd.api+json'
-        }
+        method: 'get'
     }
     
-    let request = new Request(`https://api.pubg.com/shards/xbox/players?filter[playerNames]=${ gamertag }`, playerByNameInit);
+    // let request = new Request(`https://api.pubg.com/shards/xbox/players?filter[playerNames]=${ gamertag }`, playerByNameInit);
+    let request = new Request(`/pubg/gamertag/${ gamertag }`, playerByNameInit)
     return fetch(request).then(function(response) {
-        if(response.ok) {
-            // debugger
-            return response.json().then(json => {
-                return json.data[0].relationships.matches.data;
-            })
-        }
+        return response.json()
     })
 }
+// window.getPlayerByName = getPlayerByName;
 
 export const getMatch = (matchId) => {
     const gameInit = {
@@ -26,7 +19,7 @@ export const getMatch = (matchId) => {
     }
 
     // let request = new Request(`https://api.pubg.com/shards/xbox/matches/${ matchId }`, gameInit);
-    let request = new Request(`/pubg/gamertag/${ matchId }`, gameInit)
+    let request = new Request(`/pubg/matches/${ matchId }`, gameInit)
     return fetch(request).then(function(response) {
         return response.json()
     })
@@ -36,18 +29,11 @@ export const getMatch = (matchId) => {
 export const getTelemetry = (url) => {
     const telemetryInit = {
         method: 'get',
-        headers: {
-            Accept: 'application/vnd.api+json'
-        }
     }
 
-    let request = new Request(url, telemetryInit);
+    let request = new Request(`/pubg/telemetry/?url=${ url }`, telemetryInit);
     return fetch(request).then(function(response) {
-        if(response.ok) {
-            return response.json().then(json => {
-                return json
-            })
-        }
+        return response.json()
     })
 }
 // window.getTelemetry = getTelemetry;
@@ -58,43 +44,31 @@ export const getOAuth = () => {
         // scope: 'user:read:email'
 
     }
-    let request = new Request(`https://id.twitch.tv/oauth2/token?client_id=${ Key.twitchAPI }&client_secret=${ Key.clientSECRET }&grant_type=client_credentials`, oauthInit);
+    let request = new Request(`/oauth`, oauthInit);
     return fetch(request).then(function(response) {
-        if(response.ok) {
-            return response.json()
-        }
+        return response.json()
     })
 }
 
 export const getTwitchUser = gamertag => {
     const twitchUserInit = {
-        method: 'get',
-        headers: {
-            'Authorization': `Bearer ${ Key.oAUTH }`,
-            'Client-Id': `${ Key.twitchAPI }`
-        }
+        method: 'get'
     }
-    let request = new Request(`https://api.twitch.tv/helix/users?login=${ gamertag }`, twitchUserInit);
+    let request = new Request(`/twitch/${ gamertag }`, twitchUserInit);
     return fetch(request)
 }
-// window.getTwitchUser = getTwitchUser;
+window.getTwitchUser = getTwitchUser;
 
 export const getVideos = userId => {
     const twitchVideosInit = {
         method: 'get',
-        headers: {
-            'Authorization': `Bearer ${ Key.oAUTH }`,
-            'Client-Id': `${ Key.twitchAPI }`
-        }
     }
-    let request = new Request(`https://api.twitch.tv/helix/videos?user_id=${ userId }`, twitchVideosInit);
+    let request = new Request(`/twitchvideos/${ userId }`, twitchVideosInit);
     return fetch(request).then(function(response) {
-        if(response.ok) {
-            return response.json()
-        }
+        return response.json()
     })
 }
-// window.getVideos = getVideos;
+window.getVideos = getVideos;
 
 export const getPubgVideos = videoId => {
     const twitchPubgInit = {
@@ -107,6 +81,8 @@ export const getPubgVideos = videoId => {
     let request = new Request(`https://api.twitch.tv/kraken/videos/${ videoId }`, twitchPubgInit);
     return fetch(request)
 }
+
+window.getPubgVideos = getPubgVideos;
 
 
 export const timeGreaterThan = (t1, t2) => {
