@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const test = document.getElementsByClassName("test")[0];
     let a;
     test.addEventListener('click', async () => {
-        a = await getPlayerByName('iSWATxJOKERi');
+        a = await getTwitchUser('iSWATxJOKERi');
         console.log(a);
     })
     let BLACKLISTED = {};
