@@ -5,12 +5,6 @@ import { noVideosFound, videosFound } from './scripts/no_videos_found';
 import { displayStreams } from './scripts/streams';
 
 document.addEventListener("DOMContentLoaded", () => {
-    const test = document.getElementsByClassName("test")[0];
-    let a;
-    test.addEventListener('click', async () => {
-        a = await getTwitchUser('iSWATxJOKERi');
-        console.log(a);
-    })
     let BLACKLISTED = {};
     let kAV = [];
     let actual;
