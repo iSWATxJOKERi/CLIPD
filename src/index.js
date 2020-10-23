@@ -91,22 +91,14 @@ document.addEventListener("DOMContentLoaded", () => {
             })
             // console.log(kAV);
             
-            let twitchUser = await getTwitchUser(uname).then(function(response) {
-                if(response.ok) {
-                    return response.json().then(json => {
-                        return json
-                    })
-                } else {
-                    return false
-                }
-            })
+            let twitchUser = await getTwitchUser(uname);
             if(twitchUser) {
                 if(twitchUser.data.length > 0) {
                     let videos = await getVideos(twitchUser.data[0].id);
                     if(videos.data.length > 0) {
-                        let clipss = [];
+                        let clips = [];
                         for(const vid of videos.data) {
-                            clipss.push(getPubgVideos(vid.id).then(function(response) {
+                            clips.push(getPubgVideos(vid.id).then(function(response) {
                                 if(response.ok) {
                                     return response.json()
                                 }else {
@@ -114,7 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                 }
                             }))
                         }
-                        let c = await Promise.all(clipss);
+                        let c = await Promise.all(clips);
                         // console.log(c);
                         streams = c.filter(ele => ele.game === "PLAYERUNKNOWN'S BATTLEGROUNDS");
                         // debugger
@@ -130,7 +122,6 @@ document.addEventListener("DOMContentLoaded", () => {
     let events = [];
     let telemetryEvents = [];
     let clips = [];
-    let seams = [];
     async function getPlayer() {
         let gamertag = document.getElementsByClassName("gamertag-field")[0].value;
         const splash = document.getElementsByClassName("splash-content")[0];
@@ -198,35 +189,21 @@ document.addEventListener("DOMContentLoaded", () => {
             let eventTimestamp = tEvent._D;
             if(tEvent.killer) {
                 if(!BLACKLISTED[tEvent.killer.name]){
-                    let twitchUser = await getTwitchUser(tEvent.killer.name).then(function(response) {
-                        if(response.ok) {
-                            return response.json().then(json => {
-                                return json
-                            })
-                        } else {
-                            return false
-                        }
-                    })
+                    let twitchUser = await getTwitchUser(tEvent.killer.name);
                     if(twitchUser) {
                         if(twitchUser.data.length > 0) {
                             let videos = await getVideos(twitchUser.data[0].id);
                             if(videos.data.length > 0) {
-                                let clipss = [];
-                                for(const vid of videos.data) {
-                                    clipss.push(getPubgVideos(vid.id).then(function(response) {
-                                        if(response.ok) {
-                                            return response.json()
-                                        }else {
-                                            return false
+                                videos.data.map(async vid => {
+                                    let clip = await getPubgVideos(vid.id);
+                                    if(clip) {
+                                        // debugger
+                                        if(clip.game === "PLAYERUNKNOWN'S BATTLEGROUNDS") {
+                                            // debugger
+                                            if(timeGreaterThan(eventTimestamp, clip.created_at) && timeGreaterThan2(eventTimestamp, clip.created_at, clip.length)) {
+                                                clips.push({"url": clip.url, "timestampInSeconds": timestamp(eventTimestamp, clip.created_at, clip.length), "event": tEvent, "vod": clip})
+                                            }
                                         }
-                                    }))
-                                }
-                                let c = await Promise.all(clipss);
-                                // console.log(c);
-                                seams = c.filter(ele => ele.game === "PLAYERUNKNOWN'S BATTLEGROUNDS");
-                                seams.map(clip => {
-                                    if(timeGreaterThan(eventTimestamp, clip.created_at) && timeGreaterThan2(eventTimestamp, clip.created_at, clip.length)) {
-                                        clips.push({"url": clip.url, "timestampInSeconds": timestamp(eventTimestamp, clip.created_at, clip.length), "event": tEvent, "vod": clip})
                                     }
                                 })
                             }
@@ -239,35 +216,23 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             if(tEvent.victim) {
                 if(!BLACKLISTED[tEvent.victim.name]){
-                    let twitchUser = await getTwitchUser(tEvent.victim.name).then(function(response) {
-                        if(response.ok) {
-                            return response.json().then(json => {
-                                return json
-                            })
-                        } else {
-                            return false
-                        }
-                    })
+                    let twitchUser = await getTwitchUser(tEvent.victim.name);
                     if(twitchUser) {
                         if(twitchUser.data.length > 0) {
                             let videos = await getVideos(twitchUser.data[0].id);
                             if(videos.data.length > 0) {
-                                let clipss = [];
-                                for(const vid of videos.data) {
-                                    clipss.push(getPubgVideos(vid.id).then(function(response) {
-                                        if(response.ok) {
-                                            return response.json()
-                                        }else {
-                                            return false
+                                console.log(videos.data.length)
+                                videos.data.map(async vid => {
+                                    let clip = await getPubgVideos(vid.id);
+                                    if(clip) {
+                                        // debugger
+                                        if(clip.game === "PLAYERUNKNOWN'S BATTLEGROUNDS") {
+                                            // debugger
+                                            if(timeGreaterThan(eventTimestamp, clip.created_at) && timeGreaterThan2(eventTimestamp, clip.created_at, clip.length)) {
+                                                clips.push({"url": clip.url, "timestampInSeconds": timestamp(eventTimestamp, clip.created_at, clip.length), "event": tEvent, "vod": clip})
+                                                // console.log(clips)
+                                            }
                                         }
-                                    }))
-                                }
-                                let c = await Promise.all(clipss);
-                                // console.log(c);
-                                seams = c.filter(ele => ele.game === "PLAYERUNKNOWN'S BATTLEGROUNDS");
-                                seams.map(clip => {
-                                    if(timeGreaterThan(eventTimestamp, clip.created_at) && timeGreaterThan2(eventTimestamp, clip.created_at, clip.length)) {
-                                        clips.push({"url": clip.url, "timestampInSeconds": timestamp(eventTimestamp, clip.created_at, clip.length), "event": tEvent, "vod": clip})
                                     }
                                 })
                             }
@@ -279,18 +244,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }
         }
-        // console.log(clips);
-        // console.log("done");
-        // let final = await Promise.allSettled(clips);
-        // console.log(final);
-        if(clips.length === 0) {
+        console.log(clips);
+        let final = await Promise.allSettled(clips);
+        console.log(final);
+        if(final.length === 0) {
             fetchingVideos.style.display = "none";
             logo.style.display = "none";
             noVideosFound(gamertag);
         } else {
             logo.style.display = "none";
             fetchingVideos.style.display = "none";
-            videosFound(gamertag, clips);
+            videosFound(gamertag, final);
         }
     }
 })

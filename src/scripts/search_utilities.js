@@ -55,9 +55,13 @@ export const getTwitchUser = gamertag => {
         method: 'get'
     }
     let request = new Request(`/twitch/${ gamertag }`, twitchUserInit);
-    return fetch(request)
+    return fetch(request).then(r => {
+        return r.json().then(json => {
+          return json
+        })
+    })
 }
-// window.getTwitchUser = getTwitchUser;
+window.getTwitchUser = getTwitchUser;
 
 export const getVideos = userId => {
     const twitchVideosInit = {
@@ -73,16 +77,14 @@ export const getVideos = userId => {
 export const getPubgVideos = videoId => {
     const twitchPubgInit = {
         method: 'get',
-        headers: {
-            "Accept": "application/vnd.twitchtv.v5+json",
-            'Client-Id': `${ Key.twitchAPI }`
-        }
     }
-    let request = new Request(`https://api.twitch.tv/kraken/videos/${ videoId }`, twitchPubgInit);
-    return fetch(request)
+    let request = new Request(`/pubgvideos/${ videoId }`, twitchPubgInit);
+    return fetch(request).then(function(response) {
+        return response.json()
+    })
 }
 
-// window.getPubgVideos = getPubgVideos;
+window.getPubgVideos = getPubgVideos;
 
 
 export const timeGreaterThan = (t1, t2) => {

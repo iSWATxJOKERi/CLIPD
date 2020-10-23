@@ -97,10 +97,12 @@ app.get("/twitch/:user", (req,res) => {
   }
   let request = new fetch.Request(`https://api.twitch.tv/helix/users?login=${ req.params.user }`, twitchUserInit);
   return fetch(request).then(function(response) {
-    if(response.ok) {
-      return response.json().then(json => {
+    if(response.ok){
+      return response.json().then(json=> {
         res.send(json)
       })
+    } else {
+      res.send(false)
     }
   })
 })
@@ -135,7 +137,9 @@ app.get("/pubgvideos/:videoId", (req, res)=> {
   let request = new fetch.Request(`https://api.twitch.tv/kraken/videos/${ req.params.videoId }`, twitchPubgInit);
   return fetch(request).then(function(response) {
     if(response.ok) {
-      res.send(response)
+      return response.json().then(json => {
+        res.send(json)
+      })
     }
   })
 })
