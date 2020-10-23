@@ -221,7 +221,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         if(twitchUser.data.length > 0) {
                             let videos = await getVideos(twitchUser.data[0].id);
                             if(videos.data.length > 0) {
-                                console.log(videos.data.length)
+                                // console.log(videos.data.length)
                                 videos.data.map(async vid => {
                                     let clip = await getPubgVideos(vid.id);
                                     if(clip) {
@@ -244,9 +244,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }
         }
-        console.log(clips);
+        // console.log(clips);
         let final = await Promise.allSettled(clips);
-        console.log(final);
+        // console.log(final);
         if(final.length === 0) {
             fetchingVideos.style.display = "none";
             logo.style.display = "none";
