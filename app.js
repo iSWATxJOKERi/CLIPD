@@ -140,6 +140,8 @@ app.get("/pubgvideos/:videoId", (req, res)=> {
       return response.json().then(json => {
         res.send(json)
       })
+    } else {
+      res.send(false)
     }
   })
 })

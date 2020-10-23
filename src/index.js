@@ -98,13 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     if(videos.data.length > 0) {
                         let clips = [];
                         for(const vid of videos.data) {
-                            clips.push(getPubgVideos(vid.id).then(function(response) {
-                                if(response.ok) {
-                                    return response.json()
-                                }else {
-                                    return false
-                                }
-                            }))
+                            clips.push(getPubgVideos(vid.id));
                         }
                         let c = await Promise.all(clips);
                         // console.log(c);
