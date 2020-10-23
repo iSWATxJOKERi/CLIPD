@@ -36,7 +36,7 @@ export const getTelemetry = (url) => {
         return response.json()
     })
 }
-// window.getTelemetry = getTelemetry;
+window.getTelemetry = getTelemetry;
 
 export const getOAuth = () => {
     const oauthInit = {
@@ -61,7 +61,7 @@ export const getTwitchUser = gamertag => {
         })
     })
 }
-window.getTwitchUser = getTwitchUser;
+// window.getTwitchUser = getTwitchUser;
 
 export const getVideos = userId => {
     const twitchVideosInit = {
@@ -84,7 +84,7 @@ export const getPubgVideos = videoId => {
     })
 }
 
-window.getPubgVideos = getPubgVideos;
+// window.getPubgVideos = getPubgVideos;
 
 
 export const timeGreaterThan = (t1, t2) => {
