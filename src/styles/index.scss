@@ -202,6 +202,19 @@ body {
     align-items: center;
 }
 
+.vframe2 {
+    position: fixed;
+    height: 70%;
+    width: 55%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    iframe {
+        height: 80%;
+        width: 100%;
+    }
+}
+
 .frame {
     position: relative;
 }
@@ -214,8 +227,8 @@ body {
     display: none;
     position: absolute;
     z-index: 101;
-    top: 165px;
-    right: 450px;
+    top: 0;
+    right: 0;
 }
 
 .close2 {

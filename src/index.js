@@ -156,7 +156,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return await getMatch(match.id)
         })
 
-        fetchingPlayer.style.display = "none";
+        fetchingPlayer.parentNode.removeChild(fetchingPlayer);
         const fetchingMatches = document.createElement("span");
         fetchingMatches.classList.add("loading2", "loading");
         fetchingMatches.innerHTML = 'Fetching Matches ...';
@@ -173,7 +173,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // console.log(games)
 
 
-        fetchingMatches.style.display = "none";
+        fetchingMatches.parentNode.removeChild(fetchingMatches);
         const fetchingEvents = document.createElement("span");
         fetchingEvents.classList.add("loading3", "loading");
         fetchingEvents.innerHTML = 'Fetching Events ...';
@@ -201,7 +201,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let telemetry = await Promise.allSettled(events);
         telemetry ? clearInterval(ape) : null;
 
-        fetchingEvents.style.display = "none";
+        fetchingEvents.parentNode.removeChild(fetchingEvents);
         const fetchingKillsAndDeaths = document.createElement("span");
         fetchingKillsAndDeaths.classList.add("loading4", "loading");
         fetchingKillsAndDeaths.innerHTML = 'Fetching Kills and Deaths ...';
@@ -216,7 +216,7 @@ document.addEventListener("DOMContentLoaded", () => {
             })
         })
         // console.log(telemetryEvents)
-        fetchingKillsAndDeaths.style.display = "none";
+        fetchingKillsAndDeaths.parentNode.removeChild(fetchingKillsAndDeaths);
         const fetchingVideos = document.createElement("span");
         fetchingVideos.classList.add("loading5", "loading");
         fetchingVideos.innerHTML = 'Fetching Videos ...';
@@ -291,13 +291,13 @@ document.addEventListener("DOMContentLoaded", () => {
         let final = await Promise.allSettled(clips);
         // console.log(final);
         if(final.length === 0) {
-            fetchingVideos.style.display = "none";
+            fetchingVideos.parentNode.removeChild(fetchingVideos);
             logo.style.display = "none";
             final ? clearInterval(ape2) : null;
             noVideosFound(gamertag);
         } else {
             logo.style.display = "none";
-            fetchingVideos.style.display = "none";
+            fetchingVideos.parentNode.removeChild(fetchingVideos);
             final ? clearInterval(ape2) : null;
             videosFound(gamertag, final);
         }
