@@ -20,5 +20,7 @@
 
 <img src="/src/images/clipd4.gif" alt="search3">
 
+* All the kills and deaths for that streamer will be on the left-side, so you have choose which kills and deaths you want to see.
+
 <img src="/src/images/clipd5.gif" alt="search4">
 
