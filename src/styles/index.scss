@@ -80,11 +80,13 @@ body {
 
 .loading {
     color: green;
+    position: absolute;
+    right: 270px;
 }
 
 .getStreams {
     position: relative;
-    width: 35%;
+    width: 60%;
     span {
         margin-left: 5px;
     }
@@ -192,7 +194,12 @@ body {
 }
 
 .vframe {
-   position: fixed;
+    position: fixed;
+    height: 70%;
+    width: 55%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .frame {
@@ -212,11 +219,10 @@ body {
 }
 
 .close2 {
-    display: none;
     position: absolute;
     z-index: 101;
-    top: 165px;
-    right: 450px;
+    top: 0;
+    right: 0;
 }
 
 .streamsBox {
@@ -252,11 +258,14 @@ body {
 
 .load {
     color: green;
+    position: absolute;
+    bottom: 0;
     text-align: center;
+    width: 300px;
 }
 
 #placeholder {
     box-sizing: border-box;
-    padding: 5px;
+    padding: 5px 0;
     color: green;
 }

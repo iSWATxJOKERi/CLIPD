@@ -1,4 +1,6 @@
 export const noVideosFound = (gamertag) => {
+    const first = document.getElementsByClassName("first")[0];
+    first.style.display = "none";
     const splash = document.getElementsByClassName("splash-content")[0];
     splash.style.display = "none";
     const logo = document.getElementsByClassName("logo")[0];
@@ -25,6 +27,8 @@ export const noVideosFound = (gamertag) => {
 }
 
 export const videosFound = (gamertag, clips) => {
+    const first = document.getElementsByClassName("first")[0];
+    first.style.display = "none";
     const splash = document.getElementsByClassName("splash-content")[0];
     splash.style.display = "none";
     const logo = document.getElementsByClassName("logo")[0];

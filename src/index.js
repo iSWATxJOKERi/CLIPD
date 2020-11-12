@@ -55,14 +55,22 @@ document.addEventListener("DOMContentLoaded", () => {
         const uname = document.getElementsByClassName("un-field")[0].value;
         const gtag = document.getElementsByClassName("gt-field")[0].value;
 
+        let a;
         if(uname && gtag) {
             const fp = document.createElement("span");
             fp.classList.add("loading1", "load");
             fp.innerHTML = 'Fetching Videos ...';
             input.appendChild(fp);
+            a = setInterval(() => {
+                fp.style.display = "none"
+                setTimeout(() => {
+                    fp.style.display = "inline"
+                }, 1000)
+            }, 2000)
         }
 
         let allVids = await getStreams(uname, gtag);
+        allVids ? clearInterval(a) : null;
         displayStreams(kAV, allVids, gtag);
 
 
@@ -127,13 +135,21 @@ document.addEventListener("DOMContentLoaded", () => {
     let clips = [];
     async function getPlayer() {
         let gamertag = document.getElementsByClassName("gamertag-field")[0].value;
-        const splash = document.getElementsByClassName("splash-content")[0];
+        const splash = document.getElementById("getStreams");
         const logo = document.getElementsByClassName("logo")[0];
         const fetchingPlayer = document.createElement("span");
         fetchingPlayer.classList.add("loading1", "loading");
         fetchingPlayer.innerHTML = 'Fetching Player ...';
         splash.appendChild(fetchingPlayer);
+        let ape4;
+        ape4 = setInterval(() => {
+            fetchingPlayer.style.display = "none";
+            setTimeout(() => {
+                fetchingPlayer.style.display = "inline";
+            }, 500)
+        }, 1000)
         let matches = await getPlayerByName(gamertag);
+        matches ? clearInterval(ape4) : null;
         // console.log(matches);
         // debugger
         actualMatches = matches.map(async match => {
@@ -145,7 +161,15 @@ document.addEventListener("DOMContentLoaded", () => {
         fetchingMatches.classList.add("loading2", "loading");
         fetchingMatches.innerHTML = 'Fetching Matches ...';
         splash.appendChild(fetchingMatches);
+        let ape3;
+        ape3 = setInterval(() => {
+            fetchingMatches.style.display = "none";
+            setTimeout(() => {
+                fetchingMatches.style.display = "inline";
+            }, 500)
+        }, 1000)
         let games = await Promise.allSettled(actualMatches);
+        games ? clearInterval(ape3) : null;
         // console.log(games)
 
 
@@ -154,6 +178,13 @@ document.addEventListener("DOMContentLoaded", () => {
         fetchingEvents.classList.add("loading3", "loading");
         fetchingEvents.innerHTML = 'Fetching Events ...';
         splash.appendChild(fetchingEvents);
+        let ape;
+        ape = setInterval(() => {
+            fetchingEvents.style.display = "none";
+            setTimeout(() => {
+                fetchingEvents.style.display = "inline";
+            }, 500)
+        }, 1000)
 
         games.forEach(async match => {
             if(match.value){
@@ -168,12 +199,14 @@ document.addEventListener("DOMContentLoaded", () => {
         })
 
         let telemetry = await Promise.allSettled(events);
+        telemetry ? clearInterval(ape) : null;
 
         fetchingEvents.style.display = "none";
         const fetchingKillsAndDeaths = document.createElement("span");
         fetchingKillsAndDeaths.classList.add("loading4", "loading");
         fetchingKillsAndDeaths.innerHTML = 'Fetching Kills and Deaths ...';
         splash.appendChild(fetchingKillsAndDeaths);
+
         // console.log(telemetry)
         telemetry.forEach(event => {
             event.value.forEach(log => {
@@ -188,6 +221,13 @@ document.addEventListener("DOMContentLoaded", () => {
         fetchingVideos.classList.add("loading5", "loading");
         fetchingVideos.innerHTML = 'Fetching Videos ...';
         splash.appendChild(fetchingVideos);
+        let ape2;
+        ape2 = setInterval(() => {
+            fetchingVideos.style.display = "none";
+            setTimeout(() => {
+                fetchingVideos.style.display = "inline";
+            }, 500)
+        }, 1000)
         for(const tEvent of telemetryEvents) {
             let eventTimestamp = tEvent._D;
             if(tEvent.killer) {
@@ -253,10 +293,12 @@ document.addEventListener("DOMContentLoaded", () => {
         if(final.length === 0) {
             fetchingVideos.style.display = "none";
             logo.style.display = "none";
+            final ? clearInterval(ape2) : null;
             noVideosFound(gamertag);
         } else {
             logo.style.display = "none";
             fetchingVideos.style.display = "none";
+            final ? clearInterval(ape2) : null;
             videosFound(gamertag, final);
         }
     }
