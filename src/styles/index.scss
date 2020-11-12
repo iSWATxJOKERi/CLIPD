@@ -5,9 +5,28 @@ body {
 }
 
 .logo {
+    height: 100vh;
+}
+
+.first {
+    display: flex;
+    height: 100vh;
+}
+
+.icons {
     position: absolute;
-    top: 188px;
-    left: 50px;
+    top: 0;
+    right: 0;
+    width: 8%;
+    display: flex;
+    justify-content: space-around;
+    padding-top: 10px;
+    .fab {
+        font-size: 30px;
+    }
+    .fab:hover {
+        cursor: pointer;
+    }
 }
 
 .search-box {
@@ -16,7 +35,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 10%;
-    width: 40%;
+    width: 60%;
     border-radius: 57px;
     border: 1px solid silver;
     padding-left: 35px;
@@ -31,7 +50,7 @@ body {
         color:silver;
     }
     .fa-search {
-        font-size: 40px;
+        font-size: 200%;
         color: green;
     }
     .fa-search:hover {
@@ -40,12 +59,10 @@ body {
 }
 
 .splash-content {
-    height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: center;
     flex-direction: column;
-    margin-left: 200px;
+    width: 60%;
 }
 
 .player-search-errors {

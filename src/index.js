@@ -9,7 +9,16 @@ document.addEventListener("DOMContentLoaded", () => {
     let kAV = [];
     let actual;
     let streams = [];
-    // let gamertag = document.getElementsByClassName("gamertag-field")[0].value;
+    document.getElementsByClassName("fa-github")[0].addEventListener('click', () => {
+        window.open("https://github.com/iSWATxJOKERi/CLIPD")
+    })
+    document.getElementsByClassName("fa-linkedin-in")[0].addEventListener('click', () => {
+        window.open("https://www.linkedin.com/in/lawrence-menyah-448597117/")
+    })
+    document.getElementsByClassName("fa-angellist")[0].addEventListener('click', () => {
+        window.open("https://angel.co/u/iswatxjokeri")
+    })
+
     const container = document.getElementsByClassName("getStreams")[0];
     document.querySelector(".fa-search").addEventListener("click", getPlayer);
 
