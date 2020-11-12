@@ -86,7 +86,8 @@ export const displayStreams = (events, videos, gtag) => {
                 width: 970,
                 height: 540,
                 autoplay: false,
-                video: `${ videos[i]._id }`
+                video: `${ videos[i]._id }`,
+                parent: ["clipd.herokuapp.com"]
             };
             names[i] = new Twitch.Player(`${ i }`, options);
             names[i].setVolume(0.5);

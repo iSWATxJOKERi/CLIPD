@@ -75,7 +75,8 @@ export const videosFound = (gamertag, clips) => {
             height: 540,
             autoplay: false,
             time: `${ clips[i].value.timestampInSeconds }`,
-            video: `${ clips[i].value.vod._id }`
+            video: `${ clips[i].value.vod._id }`,
+            parent: ["clipd.herokuapp.com"]
         };
         names[i] = new Twitch.Player(`${ i }`, options);
         names[i].setVolume(0.5);
