@@ -93,7 +93,7 @@ export const videosFound = (gamertag, clips) => {
                 names[i].pause();
                 document.getElementsByClassName(`modal${ i }`)[0].style.display = "none";
                 document.getElementsByClassName(`close${ i }`)[0].style.display = "none";
-                console.log("clicked")
+                console.log("clicked");
             })
         // })
 

@@ -41,11 +41,11 @@ export const displayStreams = (events, videos, gtag) => {
         if(videoHasEvents[videos[i]._id]) {
             const ul = document.createElement("ul");
             ul.innerHTML = `<h3>${ videos[i].title }</h3><span>${ dateConverter(videos[i].created_at) }</span>`;
-            ul.classList.add("streamsBox");
+            ul.classList.add("streamsBox", `streamsBox${ i }`);
             const modal = document.createElement("section");
-            modal.classList.add("modal2");
+            modal.classList.add("modal2", `modal2-${ i }`);
             const modal_content = document.createElement("div");
-            modal_content.classList.add("modal-content");
+            modal_content.classList.add("modal-content", `modal-content${ i }`);
 
             for(let j = 0; j < clips.length; j++) {
                 if(clips[j].video_id === videos[i]._id) {
@@ -62,6 +62,10 @@ export const displayStreams = (events, videos, gtag) => {
             const div = document.createElement("div");
             div.setAttribute("id", `${ i }`);
             div.classList.add("vframe");
+            const btn = document.createElement("span");
+            btn.innerHTML = '&#10006;';
+            btn.classList.add("close2", `close2-${ i }`);
+            div.appendChild(btn);
             modal.appendChild(div);
 
             ul.appendChild(modal);
@@ -70,12 +74,12 @@ export const displayStreams = (events, videos, gtag) => {
     }
 
 
-    const btn = document.createElement("span");
-    btn.innerHTML = '&#10006;';
-    btn.classList.add("close2");
+    // const btn = document.createElement("span");
+    // btn.innerHTML = '&#10006;';
+    // btn.classList.add("close2");
     container.appendChild(listOfVids)
     parent.appendChild(container);
-    parent.appendChild(btn);
+    // parent.appendChild(btn);
     document.body.appendChild(parent);
 
     let names = [];
@@ -98,31 +102,36 @@ export const displayStreams = (events, videos, gtag) => {
                     names[i].seek(Number(event.id));
                 })
             })
-            document.querySelectorAll(".close2").forEach(b => {
-                b.addEventListener('click', () => {
+            document.getElementsByClassName(`close2-${ i }`)[0].addEventListener('click', () => {
                     names[i].pause();
-                })
+                    document.getElementsByClassName(`modal2-${ i }`)[0].style.display = "none";
+                    document.getElementsByClassName(`close2-${ i }`)[0].style.display = "none";
+                    console.log("clicked");
             })
+
         }
     }
 
-    document.querySelectorAll('.streamsBox').forEach(item => {
-        const frm = item.querySelector('.modal2');
-        const btn = document.querySelector('.close2');
+    document.querySelectorAll('.streamsBox').forEach((item, idx) => {
+        const frm = item.querySelector(`.modal2-${ idx }`);
+        const btn = document.querySelector(`.close2-${ idx }`);
         item.addEventListener('click', e => {
-            frm.style.display = "flex";
-            btn.style.display = "block";
+            if(e.target === item) {
+                frm.style.display = "flex";
+                btn.style.display = "block";
+                console.log("clicked box")
+            }
         })
     })
 
-    document.querySelectorAll('.close2').forEach(x => {
-        x.addEventListener('click', e => {
-            document.querySelectorAll('.modal2').forEach(frm => {
-                frm.style.display = "none";
-                x.style.display = "none";
-            })
-        })
-    })
+    // document.querySelectorAll('.close2').forEach(x => {
+    //     x.addEventListener('click', e => {
+    //         document.querySelectorAll('.modal2').forEach(frm => {
+    //             frm.style.display = "none";
+    //             x.style.display = "none";
+    //         })
+    //     })
+    // })
 
     button.onclick = function() {
         window.location = '/';
