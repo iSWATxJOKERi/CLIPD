@@ -2,6 +2,8 @@ import dateConverter from './date_converter';
 import { timeGreaterThan, timeGreaterThan2, timestamp, timestamp2 } from './search_utilities';
 
 export const displayStreams = (events, videos, gtag) => {
+    const first = document.getElementsByClassName("first")[0];
+    first.style.display = "none";
     const splash = document.getElementsByClassName("splash-content")[0];
     splash.style.display = "none";
     const logo = document.getElementsByClassName("logo")[0];
