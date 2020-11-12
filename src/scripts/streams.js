@@ -106,7 +106,7 @@ export const displayStreams = (events, videos, gtag) => {
                     names[i].pause();
                     document.getElementsByClassName(`modal2-${ i }`)[0].style.display = "none";
                     document.getElementsByClassName(`close2-${ i }`)[0].style.display = "none";
-                    console.log("clicked");
+                    // console.log("clicked");
             })
 
         }
@@ -119,7 +119,7 @@ export const displayStreams = (events, videos, gtag) => {
             if(e.target === item) {
                 frm.style.display = "flex";
                 btn.style.display = "block";
-                console.log("clicked box")
+                // console.log("clicked box")
             }
         })
     })

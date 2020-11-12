@@ -93,7 +93,7 @@ export const videosFound = (gamertag, clips) => {
                 names[i].pause();
                 document.getElementsByClassName(`modal${ i }`)[0].style.display = "none";
                 document.getElementsByClassName(`close${ i }`)[0].style.display = "none";
-                console.log("clicked");
+                // console.log("clicked");
             })
         // })
 
@@ -102,13 +102,13 @@ export const videosFound = (gamertag, clips) => {
     document.querySelectorAll('.videoBox').forEach((item, idx) => {
         const frm = item.querySelector(`.modal${ idx }`);
         const btn = document.querySelector(`.close${ idx }`);
-        console.log(frm)
+        // console.log(frm)
         item.addEventListener('click', e => {
             // debugger
             if(e.target === item) {
                 frm.style.display = "flex";
                 btn.style.display = "block";
-                console.log("clicked box")
+                // console.log("clicked box")
             }
         })
         // btn.addEventListener('click', e => {
