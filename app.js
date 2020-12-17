@@ -102,6 +102,7 @@ app.get("/twitch/:user", (req,res) => {
         res.send(json)
       })
     } else {
+      // console.log(response);
       res.send(false)
     }
   })

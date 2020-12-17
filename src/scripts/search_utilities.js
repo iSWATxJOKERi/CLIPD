@@ -36,11 +36,11 @@ export const getTelemetry = (url) => {
         return response.json()
     })
 }
-window.getTelemetry = getTelemetry;
+// window.getTelemetry = getTelemetry;
 
 export const getOAuth = () => {
     const oauthInit = {
-        method: 'post',
+        method: 'get',
         // scope: 'user:read:email'
 
     }
@@ -49,6 +49,8 @@ export const getOAuth = () => {
         return response.json()
     })
 }
+// window.getOAuth = getOAuth;
+
 
 export const getTwitchUser = gamertag => {
     const twitchUserInit = {

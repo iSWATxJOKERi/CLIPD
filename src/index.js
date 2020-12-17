@@ -71,6 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         let allVids = await getStreams(uname, gtag);
         allVids ? clearInterval(a) : null;
+        // console.log(allVids);
         displayStreams(kAV, allVids, gtag);
 
 
@@ -109,9 +110,11 @@ document.addEventListener("DOMContentLoaded", () => {
             // console.log(kAV);
             
             let twitchUser = await getTwitchUser(uname);
+            // console.log(twitchUser);
             if(twitchUser) {
                 if(twitchUser.data.length > 0) {
                     let videos = await getVideos(twitchUser.data[0].id);
+                    // console.log(videos);
                     if(videos.data.length > 0) {
                         let clips = [];
                         for(const vid of videos.data) {
